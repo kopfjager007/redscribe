@@ -1,0 +1,14 @@
+*.wav
+*.mp3
+*.mp4
+*.txt
+*.json
+*.csv
+*.log
+build/
+redscribe.egg-info/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db

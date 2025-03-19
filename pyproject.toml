@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "redscribe"
+version = "1.0.1"
+description = "Red Team Audio Transcription & Summarization Tool"
+authors = [{ name = "Aaron Lesmeister", email = "aaron@redowllabs.com" }]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "faster-whisper",
+    "torch",
+    "torchaudio",
+    "rich"
+]
+
+[project.urls]
+Homepage = "https://github.com/kopfjager007/redscribe"
+Repository = "https://github.com/kopfjager007/redscribe.git"
+Issues = "https://github.com/kopfjager007/redscribe/-/issues"
+
+[project.scripts]
+redscribe = "redscribe.cli:main"
