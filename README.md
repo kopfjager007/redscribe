@@ -96,15 +96,33 @@ GPU: NVIDIA RTX 2000 Ada w/ 8GB VRAM & 3072 CUDA Cores
 Install CUDA GPU Inference and Deep Neural Network Library:  
 
 ```bash
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb -O ~/Downloads/cuda-keyring_1.0-1_all.deb
-sudo dpkg -i ~/Downloads/cuda-keyring_1.0-1_all.deb
-sudo apt update
-sudo apt install -y cuda-toolkit-12-8 libcudnn8 libcudnn8-dev libcudnn9-cuda-12 libcudnn9-dev-cuda-12
+wget https://developer.download.nvidia.com/compute/cuda/12.8.1/local_installers/cuda_12.8.1_570.124.06_linux.run 
+sudo sh cuda_12.8.1_570.124.06_linux.run --toolkit --installpath=/opt/cuda-12.8
 
-echo 'export PATH=/usr/local/cuda-12.8/bin:$PATH' >> ~/.zshrc
-echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.8/lib64:$LD_LIBRARY_PATH' >> ~/.zshrc
-source ~/.zshrc
+wget https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.8.0.87_cuda12-archive.tar.xz
+tar xJf cudnn-linux-x86_64-9.8.0.87_cuda12-archive.tar.xz
+sudo cp cudnn-linux-x86_64-9.8.0.87_cuda12-archive/include/cudnn*.h /opt/cuda-12.8/include/
+sudo cp cudnn-linux-x86_64-9.8.0.87_cuda12-archive/lib/libcudnn* /opt/cuda-12.8/lib64/
+sudo chmod a+r /opt/cuda-12.8/include/cudnn*.h /opt/cuda-12.8/lib64/libcudnn*
 ```  
+
+Before running `redscribe` you'll need to set the following environment variables:  
+```bash
+export PATH="/opt/cuda-12.8/bin:$PATH"
+export LD_LIBRARY_PATH="/opt/cuda-12.8/lib64:$LD_LIBRARY_PATH"
+export CUDA_HOME="/opt/cuda-12.8"
+```  
+
+You can alternatively add a function to your shell alias file:  
+```
+redscribe() {
+    PATH="/opt/cuda-12.8/bin:$PATH" \
+    LD_LIBRARY_PATH="/opt/cuda-12.8/lib64:$LD_LIBRARY_PATH" \
+    CUDA_HOME="/opt/cuda-12.8" \
+    command redscribe "$@"
+}
+
+```
 
 ### Install Pipx  
 
